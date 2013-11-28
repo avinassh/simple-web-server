@@ -53,13 +53,13 @@ class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
         length = int(self.headers['Content-Length'])
         #http://stackoverflow.com/a/12731208/1382297
         post_data = urlparse.parse_qs(self.rfile.read(length).decode('utf-8'))
-        vm_name = str(post_data.get('name')[0])
-        vm_location = str(post_data.get('location')[0])
+        lab_name = str(post_data.get('lab-name')[0])
+        lab_author = str(post_data.get('lab-author')[0])
         #print "%s/?%s" % (self.path, urllib.urlencode(post_data))
-        #self.wfile.write("%s" % self.path)
+        #print "%s/?%s" % (self.path, urllib.urlencode({k:v[0] for k,v in post_data.iteritems()}))
         self.wfile.write("<html><head><title>One VM Per Lab</title></head>")
         self.wfile.write("<body><p>This is a test.</p>")
-        self.wfile.write("<p>You successfully created a VM named: %s at the location: %s</p>" % (vm_name, vm_location))
+        self.wfile.write("<p>You successfully created a VM named: %s at the location: %s</p>" % (lab_name, lab_author))
         self.wfile.write("</body></html>")        
         return    
 

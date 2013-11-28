@@ -4,7 +4,7 @@ import urlparse
 
 import cgi
 
-class PostHandler(BaseHTTPRequestHandler):
+class Handler(BaseHTTPRequestHandler):
     
     def do_POST(self):
         # Parse the form data posted
@@ -38,8 +38,6 @@ class PostHandler(BaseHTTPRequestHandler):
                 self.wfile.write('\t%s=%s\n' % (field, form[field].value))
         return
 
-class GetHandler(BaseHTTPRequestHandler):
-    
     def do_GET(self):
         parsed_path = urlparse.urlparse(self.path)
         message_parts = [
@@ -70,6 +68,6 @@ class GetHandler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     from BaseHTTPServer import HTTPServer
-    server = HTTPServer(('localhost', 8080), PostHandler)
+    server = HTTPServer(('localhost', 8080), Handler)
     print 'Starting server, use <Ctrl-C> to stop'
     server.serve_forever()

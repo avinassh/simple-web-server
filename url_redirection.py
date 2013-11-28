@@ -16,7 +16,9 @@ LAST_RESORT = "http://google.com/"
 class RedirectHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_HEAD(s):
         s.send_response(301)
-        s.send_header("Location", REDIRECTIONS.get(s.path, LAST_RESORT))
+        s.send_header("Location", REDIRECTIONS.get(s.path, LAST_RESORT)) 
+        #get method gets the value for the key, if not found returns default value,
+        #here it is LAST_RESORT
         s.end_headers()
     def do_GET(s):
         s.do_HEAD()

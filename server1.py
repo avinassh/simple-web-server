@@ -2,10 +2,10 @@ import BaseHTTPServer
 
 def run(server_class=BaseHTTPServer.HTTPServer,
         handler_class=BaseHTTPServer.BaseHTTPRequestHandler):
-    server_address = ('localhost', 8000)
+    server_address = ('localhost', 8000)  
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
-    print 'hi', handler_class.command
+    #print 'hi', handler_class.command
 
 def run_while_true(server_class=BaseHTTPServer.HTTPServer,
                    handler_class=BaseHTTPServer.BaseHTTPRequestHandler):
@@ -19,5 +19,16 @@ def run_while_true(server_class=BaseHTTPServer.HTTPServer,
     while keep_running():
         httpd.handle_request()
 
-run()    
+class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("content-type", "text/plain")
+        self.end_headers()
+        self.wfile.write("Hello!")
+
+    def do_POST():
+            pass    
+        
+
+run(handler_class=Handler)    
 #run_while_true()

@@ -12,20 +12,16 @@ import os
 import re
 import json
 
-HOST_NAME = 'http://localhost'
-PORT_NUMBER = '8089'
-
 class HTTPClientRequest(object):
     """docstring for HTTPClientRequest"""
-    def __init__(self, request_specs):
-        #self.create_request(request_specs)
-        pass
+    def __init__(self, request_specs, HOST_NAME, PORT_NUMBER):
+        self.base_url = self._set_base_url(HOST_NAME, PORT_NUMBER)
+        self.create_request(request_specs)
 
     def create_request(self, request_specs):
-        base_url = self._set_base_url(HOST_NAME, PORT_NUMBER)
         payload = self._convert_json_to_dict(request_specs)
         payload = self._encode_payload(payload)
-        self.request_url = urllib2.Request(url=base_url, data=payload)
+        self.request_url = urllib2.Request(url=self.base_url, data=payload)
 
     def execute_request(self):
         print urllib2.urlopen(self.request_url).read()
@@ -37,7 +33,7 @@ class HTTPClientRequest(object):
         return urlencode(payload)    
 
     def _set_base_url(self, HOST_NAME, PORT_NUMBER):
-        return str(HOST_NAME+':'+PORT_NUMBER)
+        return HOST_NAME+':'+PORT_NUMBER
 
 
 #valid_json_file = r'[a-zA-Z0-9\-]+\.json'

@@ -26,8 +26,8 @@ class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write("Hello!")
 
-    def do_POST():
-            pass    
+    def do_POST(self):
+        print self.rfile.read()    
         
 
 run(handler_class=Handler)    

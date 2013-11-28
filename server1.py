@@ -5,6 +5,7 @@ def run(server_class=BaseHTTPServer.HTTPServer,
     server_address = ('localhost', 8000)
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
+    print 'hi', handler_class.command
 
 def run_while_true(server_class=BaseHTTPServer.HTTPServer,
                    handler_class=BaseHTTPServer.BaseHTTPRequestHandler):

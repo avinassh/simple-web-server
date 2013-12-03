@@ -19,7 +19,8 @@ class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(self):
         """ Respond to a GET request. """
 
-        self.do_HEAD()
+        # self.do_HEAD() HEAD shouldn't be called from here!
+        # rather construct same message here 
 
         if self.path == '/vmnum/':
             response = self.construct_message('Currently there are no VMs running')
